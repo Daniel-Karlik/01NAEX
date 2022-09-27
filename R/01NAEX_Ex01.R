@@ -24,7 +24,7 @@ print(version)
 # Read data
 Problem20 <- read.table("data/Ex02_20.csv",header=TRUE,sep=";")
 Problem26 <- read.table("data/Ex02_26.csv",header=TRUE,sep=";")
-Problem32 <- read.table("data/Ex02_30.csv",header=TRUE,sep=";")
+Problem30 <- read.table("data/Ex02_30.csv",header=TRUE,sep=";")
 
 # Solve all three problems from lecture slides:
 # Exp 2.20
@@ -42,4 +42,38 @@ t.test(Problem26$Type1,Problem26$Type2,alternative="two.sided",mu=0,
 #Normality test
 lillie.test(Problem26$Type1)
 lillie.test(Problem26$Type2)
+
+# Exp 2.30
+summary(Problem30)
+A <- var.test(Problem30$X10.seconds, Problem30$X20.seconds, ration = 1, conf.level = .95)
+print(A)
+print("p-value is") 
+print(A$p.value)
+
+print("Confidence interval is:")
+print(A$conf.int[1:2])
+p1 <- boxplot(Problem30$X10.seconds, Problem30$X20.seconds,
+              names = c("10 sec", "20 sec"),
+              col = c("red", "blue"),
+              ylab = "Quality",
+              ylim = c(1,10))
+
+#print(colnames(Problem30))
+#print(Problem30$X10.seconds)
+
+X_help <- c(Problem30$X10.seconds,Problem30$X20.seconds)
+X_1 <- rep(10,20)
+X_2 <- rep(20,20)
+Sec <- c(X_1,X_2)
+X_fin <- cbind(X_help,Sec)
+
+X_dat <- as.data.frame(X_fin)
+X_dat$Sec <- as.factor(X_dat$Sec)
+
+library(ggplot2)
+# Basic dot plot
+p<-ggplot(X_dat, aes(x=Sec, y=X_help, fill = Sec)) + 
+  geom_dotplot(binaxis='y', dotsize=1.2 , stackdir='center')
+p+scale_fill_brewer(palette="Dark2")+
+  labs(title="Dot plot of quality by CD time",x="Cool-down times (sec)", y = "Quality")
 
