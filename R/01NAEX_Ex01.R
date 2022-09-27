@@ -27,4 +27,19 @@ Problem26 <- read.table("data/Ex02_26.csv",header=TRUE,sep=";")
 Problem32 <- read.table("data/Ex02_30.csv",header=TRUE,sep=";")
 
 # Solve all three problems from lecture slides:
+# Exp 2.20
+#print(Problem20)
+summary(Problem20)
+t.test(Problem20, mu = 120)
+
+t.test(Problem20, mu = 120, conf.level =.01)
+
+# Exp 2.26
+summary(Problem26)
+var.test(Problem26$Type1, Problem26$Type2, ration = 1, conf.level = .95)
+t.test(Problem26$Type1,Problem26$Type2,alternative="two.sided",mu=0,
+       paired=F,var.equal=T,conf.level=0.95)
+#Normality test
+lillie.test(Problem26$Type1)
+lillie.test(Problem26$Type2)
 
