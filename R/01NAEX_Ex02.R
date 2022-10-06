@@ -26,8 +26,26 @@ Ex03_7 <- read.table("data/Ex03_7.csv",header=TRUE,sep=";")
 Ex03_10 <- read.table("data/Ex03_10.csv",header=TRUE,sep=";")
 
 Ex03_7$Technique <- as.factor(Ex03_7$Technique)
-
+print(Ex03_7)
 # Solve exercises from slides
+
+model_03_7 <- lm(Tensile_Strength~Technique - 1, data=Ex03_7)
+summary(model_03_7)
+confint(model_03_7)
+
+sse <- sum((Ex03_7$Tensile_Strength - model_03_7$fitted.values)^2)
+n <- length(Ex03_7$Tensile_Strength)
+mse <- sse / (n - 2)
+
+lsd.model03_7 <- LSD.test(Ex03_7$Tensile_Strength, Ex03_7$Technique, n-2,mse)
+summary(lsd.model03_7)
+print(lsd.model03_7)
+
+library(ggplot2)
+
+
+qqnorm(Ex03_7$Tensile_Strength)
+qqline(Ex03_7$Tensile_Strength)
 
 
 # Hints:
