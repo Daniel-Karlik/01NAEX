@@ -1,0 +1,70 @@
+---
+title: "01NAEX - Home project 01 - Pulse problem"
+author: "Jiri Franc and his friends (max 4)"
+date: "2022/10/06"
+output: pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# get requirements for this exercise
+list_of_packages <- c("tidyverse", "lattice", "pwr", "MASS","GGally")
+missing_packages <- list_of_packages[!(list_of_packages %in% installed.packages()[,"Package"])]
+if(length(missing_packages)) install.packages(missing_packages)
+lapply(list_of_packages, library, character.only = TRUE)
+
+######################
+# check our settings
+#getwd()
+#print(.libPaths())
+#print(sessionInfo())
+#print(version)
+```
+
+
+# Research task:
+
+The goal of this research task is to find out the effect of exercise on resting heart rate.
+
+# Descrition:
+
+You have the same number of operators as team members. Each of you will run the experiment, i.e. physical exercises and resting heart rate measurement.
+Choose 3 differently difficult exercises, (for example squats, push-ups, sit-ups, chair climbs, plank, mathematical computation, ...) and "iteration" whose levels are 10, 20, 30 (number of repetitions, number of seconds for plank, ...) affect the increase in heart rate per minute. Measure your heart rate at rest (you should have it at a similar level before each subsequent measurement) and then immediately after the exercise. Simply measure for 15 seconds and multiply the measurement by 4. In total, take 9 measurements each.
+
+
+# Submission: 
+
+Submit the elaborated measurement by October 19, 2022 in pdf + Rmd/jpnb format.
+
+
+# Questions: 
+
+ 1. Measure the data and set up the experiment so that it is *randomized*. Be sure to record the order of the measurements and the operator (member of the group taking the measurements) for each measurement. The number of replications for operator, exercise and iteration is 1.
+
+2. Calculate the basic statistics (mean, median and sd for each variable). Display the measured data (box plot, interaction plot, effects plot) and comment what we can predict about the outcome from the given figures before the analysis. 
+ 
+3.  Focus especially on the factors exercise and iteration, operator is a nuisance parameter. Run one-way analysis of variance for each factor separately. Are there significance differences in means of hart rate increases? For each factor: perform Tukey HSD and Fisher LSD test for pairwise comparison of means of individual groups.
+
+
+4.  Analyse the data using ANOVA (take all variables as a factor).
+       * With the assumption that each of the participants in the experiment forms a block.
+       * Discuss results, verify assumptions, plot QQ-plot, residuals x fitted values, residuals x factor levels.
+       * Discuss the effect of the experimental design and the evolution of the residuals over time (number of measurements).
+       * If the measured data do not meet the assumptions for using ANOVA, discuss possible transformations (logarithmic, Box-Cox, ...)  and the reason why the data do not meet the assumptions? 
+      
+5. Choose one level of iteration factor and *even if it does not meet the assumptions for using ANOVA*, solve the following: 
+   * Calculate the power of the test in the ANOVA for 3 levels of exercises and **n** operators.
+   * Assume the standard deviation of the disturbances to be 4 for the experiment conducted
+     and the maximum (for us significant) difference we want to detect is 5 bpm.
+     Calculate the number of operators needed for the power of the resulting test to be greater than 0.9.
+ 
+6. Create a regression model where you do not consider blocks and the iteration of exercises is the quantitative variable.
+      * Try to add a squared variable to the model and compare the two regression models with each other and select the more appropriate one.
+      * Check the assumptions for using the chosen model.
+
+7. If you based your previous answers on the p-value, discuss following.  Does p-value provide a good measure of evidence regarding a model or hypothesis?
+
+
+Note: In case the blocks are highly dominant and none of the other variables appear significant,
+      use only the "operator with the best data for academic purposes" for the resulting analysis.
